@@ -1,0 +1,29 @@
+$spacing: 20px;
+$box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+
+body{
+    background: url('src/images/background.jpg') center;
+    background-size: cover;
+    font-size: 16px;
+    font-family: Open Sans, Arial;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+ul, li{
+	text-decoration:none;
+	list-style:none;
+}
+
+a{
+    color: #000;
+    text-decoration: none;
+}
+
+@import 'layout/footer/footer';
+@import 'layout/header/header';
+@import 'pages/recipe-list-page/recipe-list-page';
+@import 'recipes/recipe/recipe';
+@import 'recipes/recipe-list/recipe-list';
+@import 'categories/categories';

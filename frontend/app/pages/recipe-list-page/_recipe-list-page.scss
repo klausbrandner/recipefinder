@@ -1,0 +1,15 @@
+#recipe-list-page{
+    display: table;
+    width: 100%;
+
+    .column{
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .nav{
+        width: 250px;
+        padding: 0 $spacing/2 0 $spacing;
+        box-sizing: border-box;
+    }
+}

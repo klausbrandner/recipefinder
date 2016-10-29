@@ -1,0 +1,19 @@
+.recipe{
+    margin: 0 $spacing/2 $spacing;
+    background: #fff;
+    box-shadow: $box-shadow;
+
+    .recipe-image{
+        width: 100%;
+        height: 250px;
+        background: url('src/images/steak.jpg') center;
+        background-size: cover;
+    }
+    .recipe-info{
+        padding: 20px;
+
+        p{
+            color: #666;
+        }
+    }
+}

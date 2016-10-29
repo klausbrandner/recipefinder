@@ -1,0 +1,12 @@
+#recipe-list{
+    padding: 0 $spacing/2 0 0;
+
+    .recipe-list{
+        width: 100%;
+
+        li{
+            display: inline-table;
+            width: 33.3333333%;
+        }
+    }
+}

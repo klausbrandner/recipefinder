@@ -1,0 +1,30 @@
+#categories{
+    width: 100%;
+    padding: 20px 0;
+    background: #fff;
+    box-shadow: $box-shadow;
+
+    h2{
+        padding: 0 25px;
+        font-weight: bold;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+    .category-list{
+        margin: 10px 0 0;
+
+        li{
+            padding: 10px 25px;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+
+            transition: all 0.4s;
+
+            &:hover{
+                color: #000;
+                background: #ededed;
+            }
+        }
+    }
+}
