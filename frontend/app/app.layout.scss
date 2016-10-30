@@ -23,7 +23,10 @@ a{
 
 @import 'layout/footer/footer';
 @import 'layout/header/header';
-@import 'pages/recipe-list-page/recipe-list-page';
-@import 'recipes/recipe/recipe';
-@import 'recipes/recipe-list/recipe-list';
+@import 'layout/recipe-list-page/recipe-list-page';
+
 @import 'categories/categories';
+
+@import 'recipes/recipe/recipe';
+@import 'recipes/recipe-details/recipe-details';
+@import 'recipes/recipe-list/recipe-list';
