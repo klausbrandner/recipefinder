@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 
 export class RecipeDetailsComponent {
     recipe = {
-        title: 'Steak',
+        title: 'Beef Steak',
         description: 'This is some really good steak.'
     };
 }

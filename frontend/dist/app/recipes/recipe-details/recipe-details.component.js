@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 var RecipeDetailsComponent = (function () {
     function RecipeDetailsComponent() {
         this.recipe = {
-            title: 'Steak',
+            title: 'Beef Steak',
             description: 'This is some really good steak.'
         };
     }
