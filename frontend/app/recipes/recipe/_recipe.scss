@@ -2,6 +2,11 @@
     margin: 0 $spacing/2 $spacing;
     background: #fff;
     box-shadow: $box-shadow;
+    transition: all 0.4s;
+
+    &:hover{
+        transform: scale(1.04);
+    }
 
     .recipe-image{
         width: 100%;
@@ -12,8 +17,13 @@
     .recipe-info{
         padding: 20px;
 
+        h3{
+            margin: 0 0 8px;
+        }
+
         p{
             color: #666;
+            font-size: 0.9rem;
         }
     }
 }

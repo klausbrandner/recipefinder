@@ -1,0 +1,50 @@
+#recipe-details{
+
+    .recipe-details-box{
+        display: table;
+        width: 90%;
+        margin: 0 auto;
+        background: #fff;
+        box-shadow: $box-shadow;
+
+        & > div{
+            display: table-cell;
+            vertical-align: top;
+            width: 50%;
+        }
+
+        .recipe-image{
+            height: 450px;
+            background: url('src/images/steak.jpg') center;
+            background-size: cover;
+        }
+        .recipe-info{
+            padding: 30px;
+
+            p{
+                color: #666;
+            }
+        }
+
+        .ingredients{
+            display: table;
+            width: 300px;
+            margin: 15px 0 15px;
+
+            .row{
+                display: table-row;
+            }
+            .cell{
+                display: table-cell;
+                vertical-align: top;
+                width: 50%;
+            }
+            .table-item{
+                margin: 1px;
+                padding: 7px 15px;
+                background: #ededed;
+                border-radius: 5px;
+            }
+        }
+    }
+}
