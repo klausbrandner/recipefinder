@@ -1,10 +1,12 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 
 import { AppComponent }   from './app.component';
 import { HeaderComponent }   from './layout/header/header.component';
 import { FooterComponent }   from './layout/footer/footer.component';
+import { NewRecipePageComponent }   from './layout/new-recipe-page/new-recipe-page.component';
 import { RecipeListPageComponent }   from './layout/recipe-list-page/recipe-list-page.component';
 import { RecipeDetailsPageComponent }   from './layout/recipe-details-page/recipe-details-page.component';
 
@@ -17,6 +19,7 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         RouterModule.forRoot([
             {
                 path: 'list',
@@ -24,6 +27,9 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
             },{
                 path: 'details',
                 component: RecipeDetailsPageComponent
+            },{
+                path: 'new',
+                component: NewRecipePageComponent
             },{
                 path: '',
                 component: RecipeListPageComponent
@@ -39,6 +45,7 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
         RecipeListComponent,
         RecipeListPageComponent,
         RecipeDetailsPageComponent,
+        NewRecipePageComponent,
         CategoriesComponent
     ],
     bootstrap: [ AppComponent ]

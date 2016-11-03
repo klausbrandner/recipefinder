@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./layout/header/header.component');
 var footer_component_1 = require('./layout/footer/footer.component');
+var new_recipe_page_component_1 = require('./layout/new-recipe-page/new-recipe-page.component');
 var recipe_list_page_component_1 = require('./layout/recipe-list-page/recipe-list-page.component');
 var recipe_details_page_component_1 = require('./layout/recipe-details-page/recipe-details-page.component');
 var categories_component_1 = require('./categories/categories.component');
@@ -27,6 +29,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
                 router_1.RouterModule.forRoot([
                     {
                         path: 'list',
@@ -34,6 +37,9 @@ var AppModule = (function () {
                     }, {
                         path: 'details',
                         component: recipe_details_page_component_1.RecipeDetailsPageComponent
+                    }, {
+                        path: 'new',
+                        component: new_recipe_page_component_1.NewRecipePageComponent
                     }, {
                         path: '',
                         component: recipe_list_page_component_1.RecipeListPageComponent
@@ -49,6 +55,7 @@ var AppModule = (function () {
                 recipe_list_component_1.RecipeListComponent,
                 recipe_list_page_component_1.RecipeListPageComponent,
                 recipe_details_page_component_1.RecipeDetailsPageComponent,
+                new_recipe_page_component_1.NewRecipePageComponent,
                 categories_component_1.CategoriesComponent
             ],
             bootstrap: [app_component_1.AppComponent]

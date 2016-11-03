@@ -1,0 +1,25 @@
+<div id="new-recipe-box">
+    <h1>New Recipe</h1>
+    <h2>Add new awesome recipes in the form below.</h2>
+    <form>
+        <label for="new-recipe-form-name">
+            <div class="form-label">Recipe Name</div>
+            <input [(ngModel)]="recipe.name" name="name" type="text" id="new-recipe-form-name" placeholder="Beef Steak" />
+        </label>
+        <label for="new-recipe-form-desc">
+            <div class="form-label">Short Description</div>
+            <textarea [(ngModel)]="recipe.description" name="description" class="small" id="new-recipe-form-desc" placeholder="Tastes great with red wine."></textarea>
+        </label>
+
+        <div class="form-label">Ingredients</div>
+        blablabla
+
+        <label for="new-recipe-form-prep">
+            <div class="form-label">Preperation Steps</div>
+            <textarea [(ngModel)]="recipe.preperation" name="preperation" class="big" id="new-recipe-form-prep" placeholder="Put the beef in a pan."></textarea>
+        </label>
+        <div class="button" (click)="addRecipe()">
+            Add Recipe
+        </div>
+    </form>
+</div>
