@@ -1,0 +1,57 @@
+#new-recipe-box{
+    width: 80%;
+    max-width: 600px;
+    padding: 40px 50px;
+    box-sizing: border-box;
+    background: #fff;
+    margin: 0 auto;
+    box-shadow: $box-shadow;
+
+    h1{
+        font-size: 2.2rem;
+    }
+    h2{
+        font-weight: 100;
+        font-size: 1.3rem;
+        color: #999;
+        margin: 5px 0 0;
+    }
+
+    form{
+        margin: 30px 0 0;
+    }
+
+    .form-label{
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin: 12px 0 3px;
+    }
+
+    input, textarea{
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 0.9rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    input{
+        height: 45px;
+        padding: 0 15px;
+    }
+
+    textarea{
+        padding: 12px 15px;
+
+        &.small{
+            height: 80px;
+        }
+        &.big{
+            height: 150px;
+        }
+    }
+
+    .button{
+        margin: 30px auto 0;
+    }
+}

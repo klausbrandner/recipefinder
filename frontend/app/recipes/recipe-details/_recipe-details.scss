@@ -21,15 +21,20 @@
         .recipe-info{
             padding: 30px;
 
-            p{
+            h2{
+                font-weight: 100;
+                font-size: 1.2rem;
                 color: #666;
+            }
+            p{
+
             }
         }
 
         .ingredients{
             display: table;
             width: 300px;
-            margin: 15px 0 15px;
+            margin: 20px 0;
 
             .row{
                 display: table-row;
