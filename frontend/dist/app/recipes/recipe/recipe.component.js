@@ -9,13 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var recipe_1 = require('../../models/recipe');
 var RecipeComponent = (function () {
     function RecipeComponent() {
-        this.recipe = {
-            title: 'Beef Steak',
-            description: 'This is some really good steak.'
-        };
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', recipe_1.Recipe)
+    ], RecipeComponent.prototype, "recipe", void 0);
     RecipeComponent = __decorate([
         core_1.Component({
             selector: 'recipe',

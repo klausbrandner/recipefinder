@@ -1,14 +1,14 @@
 <div id="categories">
     <h2>Categories</h2>
     <ul class="category-list">
-        <li>
+        <li [class.selected]="activeCategory === ''"
+            (click)="onSelect('')">
             All
-        </li><li>
-            Fish
-        </li><li>
-            Meat
-        </li><li>
-            Vegan
+        </li>
+        <li *ngFor="let category of categories"
+            [class.selected]="activeCategory === category"
+            (click)="onSelect(category)">
+            {{category}}
         </li>
     </ul>
 </div>
