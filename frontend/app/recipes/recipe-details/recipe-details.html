@@ -4,36 +4,22 @@
         </div>
         <div class="recipe-info">
             <h1>{{recipe.title}}</h1>
-            <h2>4.1 of 5 stars</h2>
+            <h2>{{recipe.rating}} of 5 stars</h2>
             <div class="ingredients">
-                <div class="row">
+                <div *ngFor="let ingredient of recipe.ingredients" class="row">
                     <div class="cell ingredient">
                         <div class="table-item">
-                            Beef
+                            {{ingredient.title}}
                         </div>
                     </div>
                     <div class="cell quantity">
                         <div class="table-item">
-                            1
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="cell ingredient">
-                        <div class="table-item">
-                            Bacon
-                        </div>
-                    </div>
-                    <div class="cell quantity">
-                        <div class="table-item">
-                            2
+                            {{ingredient.quantity}}
                         </div>
                     </div>
                 </div>
             </div>
-            <p>
-                Some info about the Steak
-            </p>
+            <p>{{recipe.preparation}}</p>
         </div>
     </div>
 

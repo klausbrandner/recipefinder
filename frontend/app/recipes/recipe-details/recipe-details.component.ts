@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Recipe } from '../../models/recipe';
 
 @Component({
-  selector: 'recipe-details',
-  templateUrl: './app/recipes/recipe-details/recipe-details.html'
+    selector: 'recipe-details',
+    templateUrl: './app/recipes/recipe-details/recipe-details.html'
 })
 
 export class RecipeDetailsComponent {
-    recipe = {
-        title: 'Beef Steak',
-        description: 'This is some really good steak.'
-    };
+    @Input() recipe: Recipe;
 }
