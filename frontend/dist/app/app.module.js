@@ -8,10 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// Angular Modules
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
+// Services
+var recipe_service_1 = require('./models/recipe-service');
+// Components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./layout/header/header.component');
 var footer_component_1 = require('./layout/footer/footer.component');
@@ -35,7 +39,7 @@ var AppModule = (function () {
                         path: 'list',
                         component: recipe_list_page_component_1.RecipeListPageComponent
                     }, {
-                        path: 'details',
+                        path: 'details/:rid',
                         component: recipe_details_page_component_1.RecipeDetailsPageComponent
                     }, {
                         path: 'new',
@@ -57,6 +61,9 @@ var AppModule = (function () {
                 recipe_details_page_component_1.RecipeDetailsPageComponent,
                 new_recipe_page_component_1.NewRecipePageComponent,
                 categories_component_1.CategoriesComponent
+            ],
+            providers: [
+                recipe_service_1.RecipeService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
