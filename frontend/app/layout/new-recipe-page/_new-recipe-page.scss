@@ -51,7 +51,91 @@
         }
     }
 
-    .button{
+    .addRecipe{
         margin: 30px auto 0;
+    }
+
+
+    .ingredients{
+        display: table;
+        width: 370px;
+        margin: 10px 0 0;
+
+        .row{
+            display: table-row;
+        }
+        .cell{
+            display: table-cell;
+            vertical-align: top;
+            width: 40%;
+        }
+        .actionCell{
+            display: table-cell;
+            vertical-align: top;
+            width: 100px;
+
+            .button{
+                margin: 0 0 0 5px;
+                padding: 6px 20px;
+            }
+        }
+        .table-item{
+            margin: 1px;
+            padding: 7px 15px;
+            background: #ededed;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        input{
+            height:33px;
+            font-size: 0.9rem;
+        }
+    }
+
+
+    .category-list{
+        margin: 5px 0 10px;
+        font-size: 0.9rem;
+
+        li{
+            display: inline-table;
+            margin: 0 3px 0 0;
+        }
+
+        .category{
+            display: table;
+            width: 100%;
+            background: #ededed;
+
+            & > div{
+                display: table-cell;
+                padding: 3px 12px 4px;
+            }
+            .category-delete{
+                border-left: 1px solid #dfdfdf;
+                padding: 3px 8px;
+                cursor: pointer;
+
+                &:hover{
+                    background: #E0395C;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .add-category-box{
+        display: table;
+        width: 100%;
+
+        & > div{
+            display: table-cell;
+        }
+        input{
+            height: 37px;
+        }
+        .add-btn{
+            width: 64px;
+            padding: 0 0 0 5px;
+        }
     }
 }
