@@ -17,16 +17,17 @@ var RecipeService = (function () {
     }
     RecipeService.prototype.init = function () {
         //just mocked data for now
-        this.categories = ["Vegan", "Fish", "Meat"];
+        this.categories = ["Vegan", "Fish", "Meat", "Mexican"];
         var ing1 = new ingredient_1.Ingredient("ketchup", "1l");
         var ing2 = new ingredient_1.Ingredient("nudln", "100g");
         this.recipes = [
             new recipe_1.Recipe(1, "Spagetti", "spagettiiiis", "nudln mit Ketchup", [ing1, ing2], 3.8, ["Vegan"]),
-            new recipe_1.Recipe(2, "Steak", "Beef Stake", "well done beef stake", [ing1, ing2], 4, ["Meat"]),
+            new recipe_1.Recipe(2, "Pfeffer Steak", "Das saftige Pfeffer Steak schmeckt allen Fleisch-Liebhabern garantiert. Ein Rezept das einfach zubereitet wird.", "Für das Pfeffersteak die Steaks etwa 1-2 Stunden in Öl, Weinbrand und den zerdrücken Pfefferkörner marinieren. Danach die Steaks in etwas Fett scharf anbraten und rausnehmen. In dem Fett die kleingeschnittenen Zwiebel glasig anbraten und Senf, Suppengewürz und die Petersilie dazugeben. Mit dem Sud der eingelegten Steaks und der Sahne ablöschen. Steaks in die Soße geben, mit vorgewärmten Weinbrand begießen und flambieren.", [ing1, ing2], 4, ["Meat"]),
             new recipe_1.Recipe(3, "Spagetti Bolognese", "spagettiiiis mit Fleisch", "nudln mit Ketchup und Fleisch", [ing1, ing2], 4.2, ["Meat"]),
             new recipe_1.Recipe(4, "Salat", "green Salat", "Salat Gurk und Tomaten vorbereiten und Dressing dazu", [ing1, ing2], 3.7, ["Vegan"]),
             new recipe_1.Recipe(5, "Spagetti", "spagettiiiis", "nudln mit Ketchup", [ing1, ing2], 4.4, ["Fish"])
         ];
+        this.recipes.push(new recipe_1.Recipe(6, "Wrapps", "Mexican Dish", "Fill wrapps with everything you want.", [ing1, ing2], 4.5, ['Meat', 'Mexican']));
     };
     RecipeService.prototype.getRecipes = function () {
         return Promise.resolve(this.recipes);
@@ -43,14 +44,11 @@ var RecipeService = (function () {
         }
         return Promise.resolve({});
     };
+    RecipeService.prototype.rateRecipe = function (recipe, rating, cb) {
+        cb("done");
+    };
     RecipeService.prototype.getCategories = function () {
         return Promise.resolve(this.categories);
-    };
-    RecipeService.prototype.setActiveCategory = function (category) {
-        this.activeCategory = category;
-    };
-    RecipeService.prototype.getActiveCategory = function () {
-        return Promise.resolve(this.activeCategory);
     };
     RecipeService = __decorate([
         core_1.Injectable(), 

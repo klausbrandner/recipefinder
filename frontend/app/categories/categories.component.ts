@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { RecipeService } from '../models/recipe-service';
 
@@ -9,6 +9,8 @@ import { RecipeService } from '../models/recipe-service';
 
 export class CategoriesComponent implements OnInit {
 
+    @Output() onSelectCategory = new EventEmitter<string>();
+
     categories = [];
     activeCategory = '';
 
@@ -16,6 +18,7 @@ export class CategoriesComponent implements OnInit {
 
     onSelect(category: string){
         this.activeCategory = category;
+        this.onSelectCategory.emit(category);
     }
 
     getCategories(): void {

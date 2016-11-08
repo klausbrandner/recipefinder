@@ -19,7 +19,7 @@
             background-size: cover;
         }
         .recipe-info{
-            padding: 30px;
+            padding: 50px;
 
             h2{
                 font-weight: 100;
@@ -27,14 +27,21 @@
                 color: #666;
             }
             p{
-
+                line-height: 180%;
+                font-size: 0.95rem;
+                text-align: justify;
+            }
+            .description{
+                font-weight: 600;
+                margin: 20px 0 0;
+                text-align: left;
             }
         }
 
         .ingredients{
             display: table;
             width: 300px;
-            margin: 20px 0;
+            margin: 25px 0;
 
             .row{
                 display: table-row;
@@ -49,6 +56,41 @@
                 padding: 7px 15px;
                 background: #ededed;
                 border-radius: 5px;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .evaluation-box{
+        width: 100%;
+        margin: 30px 0 0;
+
+        h2{
+            margin: 0 0 15px;
+        }
+
+        .rating-table{
+            display: table;
+            width: 150px;
+
+            & > div{
+                display: table-cell;
+                vertical-align: middle;
+                width: 20%;
+
+                .rating-value{
+                    margin: 1px;
+                    line-height: 30px;
+                    background: #ededed;
+                    text-align: center;
+                    cursor: pointer;
+                    border-radius: 5px;
+
+                    &:hover{
+                        background: #E0395C;
+                        color: #fff;
+                    }
+                }
             }
         }
     }

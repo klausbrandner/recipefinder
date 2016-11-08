@@ -2,21 +2,22 @@ DROP TABLE Recipes;
 DROP TABLE Ingredients;
 DROP TABLE Evaluations;
 DROP TABLE Categories;
+DROP TABLE BelongsTo;
 
 CREATE TABLE Recipes(
     rid INT(11) AUTO_INCREMENT,
-    recipe VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     description TEXT,
-    preperation TEXT,
+    preparation TEXT,
     PRIMARY KEY(rid)
 );
 
 CREATE TABLE Ingredients(
     rid INT(11),
-    ingredient VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     quantity VARCHAR(100) NOT NULL,
     FOREIGN KEY (rid) REFERENCES Recipes(rid) ON DELETE CASCADE,
-    PRIMARY KEY (rid, ingredient)
+    PRIMARY KEY (rid, title)
 );
 
 CREATE TABLE Evaluations(
@@ -29,7 +30,7 @@ CREATE TABLE Evaluations(
 
 CREATE TABLE Categories(
     cid INT(11) AUTO_INCREMENT,
-    category VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     PRIMARY KEY (cid)
 );
 

@@ -9,21 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var RecipeListPageComponent = (function () {
-    function RecipeListPageComponent() {
+var FilterRecipesPipe = (function () {
+    function FilterRecipesPipe() {
     }
-    RecipeListPageComponent.prototype.onSelectCategory = function (category) {
-        this.category = category;
+    FilterRecipesPipe.prototype.transform = function (value, category) {
+        var tmpRecipes = [];
+        for (var _i = 0, value_1 = value; _i < value_1.length; _i++) {
+            var recipe = value_1[_i];
+            if (recipe.categories.indexOf(category) > -1) {
+                tmpRecipes.push(recipe);
+            }
+        }
+        return tmpRecipes;
     };
-    RecipeListPageComponent = __decorate([
-        core_1.Component({
-            selector: 'recipe-list-page',
-            templateUrl: './app/layout/recipe-list-page/recipe-list-page.html'
-        }), 
+    FilterRecipesPipe = __decorate([
+        core_1.Pipe({ name: 'filterRecipes' }), 
         __metadata('design:paramtypes', [])
-    ], RecipeListPageComponent);
-    return RecipeListPageComponent;
+    ], FilterRecipesPipe);
+    return FilterRecipesPipe;
 }());
-exports.RecipeListPageComponent = RecipeListPageComponent;
+exports.FilterRecipesPipe = FilterRecipesPipe;
 
-//# sourceMappingURL=recipe-list-page.component.js.map
+//# sourceMappingURL=filterRecipes.pipe.js.map

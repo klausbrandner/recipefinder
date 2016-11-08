@@ -13,11 +13,13 @@ var recipe_service_1 = require('../models/recipe-service');
 var CategoriesComponent = (function () {
     function CategoriesComponent(recipeService) {
         this.recipeService = recipeService;
+        this.onSelectCategory = new core_1.EventEmitter();
         this.categories = [];
         this.activeCategory = '';
     }
     CategoriesComponent.prototype.onSelect = function (category) {
         this.activeCategory = category;
+        this.onSelectCategory.emit(category);
     };
     CategoriesComponent.prototype.getCategories = function () {
         var _this = this;
@@ -26,6 +28,10 @@ var CategoriesComponent = (function () {
     CategoriesComponent.prototype.ngOnInit = function () {
         this.getCategories();
     };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], CategoriesComponent.prototype, "onSelectCategory", void 0);
     CategoriesComponent = __decorate([
         core_1.Component({
             selector: 'categories',
