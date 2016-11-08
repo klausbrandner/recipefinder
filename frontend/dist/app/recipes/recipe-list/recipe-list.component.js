@@ -9,16 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var recipe_service_1 = require('../../models/recipe-service');
 var RecipeListComponent = (function () {
-    function RecipeListComponent() {
-        this.recipes = [];
+    function RecipeListComponent(recipeService) {
+        this.recipeService = recipeService;
     }
+    RecipeListComponent.prototype.getRecipes = function () {
+        var _this = this;
+        this.recipeService.getRecipes().then(function (recipes) {
+            _this.recipes = recipes;
+            _this.displayRecipes = recipes;
+        });
+    };
+    RecipeListComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['category']) {
+            var newCat = changes['category'].currentValue;
+            this.displayRecipes = [];
+            if (newCat) {
+                for (var _i = 0, _a = this.recipes; _i < _a.length; _i++) {
+                    var recipe = _a[_i];
+                    if (recipe.categories.indexOf(newCat) > -1) {
+                        this.displayRecipes.push(recipe);
+                    }
+                }
+            }
+            else {
+                this.displayRecipes = this.recipes;
+            }
+        }
+    };
+    RecipeListComponent.prototype.ngOnInit = function () {
+        this.getRecipes();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], RecipeListComponent.prototype, "category", void 0);
     RecipeListComponent = __decorate([
         core_1.Component({
             selector: 'recipe-list',
             templateUrl: './app/recipes/recipe-list/recipe-list.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [recipe_service_1.RecipeService])
     ], RecipeListComponent);
     return RecipeListComponent;
 }());

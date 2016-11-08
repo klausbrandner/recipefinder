@@ -9,19 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var recipe_service_1 = require('../../models/recipe-service');
+var recipe_1 = require('../../models/recipe');
 var RecipeDetailsComponent = (function () {
-    function RecipeDetailsComponent() {
-        this.recipe = {
-            title: 'Beef Steak',
-            description: 'This is some really good steak.'
-        };
+    function RecipeDetailsComponent(recipeService) {
+        this.recipeService = recipeService;
     }
+    RecipeDetailsComponent.prototype.onRate = function (rating) {
+        if (!this.rated) {
+            var self = this;
+            this.recipeService.rateRecipe(this.recipe, rating, function (status) {
+                if (status === "done") {
+                    console.log("rated - " + rating);
+                    self.rated = true;
+                }
+                else {
+                    console.log("an error occured");
+                }
+            });
+        }
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', recipe_1.Recipe)
+    ], RecipeDetailsComponent.prototype, "recipe", void 0);
     RecipeDetailsComponent = __decorate([
         core_1.Component({
             selector: 'recipe-details',
             templateUrl: './app/recipes/recipe-details/recipe-details.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [recipe_service_1.RecipeService])
     ], RecipeDetailsComponent);
     return RecipeDetailsComponent;
 }());

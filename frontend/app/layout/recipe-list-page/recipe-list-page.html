@@ -1,8 +1,8 @@
 <div id="recipe-list-page">
     <div class="column nav">
-        <categories></categories>
+        <categories (onSelectCategory)="onSelectCategory($event)"></categories>
     </div>
     <div class="column list">
-        <recipe-list></recipe-list>
+        <recipe-list [category]="category"></recipe-list>
     </div>
 </div>

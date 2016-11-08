@@ -1,8 +1,13 @@
+// Angular Modules
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 
+// Services
+import { RecipeService } from './models/recipe-service';
+
+// Components
 import { AppComponent }   from './app.component';
 import { HeaderComponent }   from './layout/header/header.component';
 import { FooterComponent }   from './layout/footer/footer.component';
@@ -25,7 +30,7 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
                 path: 'list',
                 component: RecipeListPageComponent
             },{
-                path: 'details',
+                path: 'details/:rid',
                 component: RecipeDetailsPageComponent
             },{
                 path: 'new',
@@ -47,6 +52,9 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
         RecipeDetailsPageComponent,
         NewRecipePageComponent,
         CategoriesComponent
+    ],
+    providers: [
+        RecipeService
     ],
     bootstrap: [ AppComponent ]
 })

@@ -15,7 +15,7 @@
         background-size: cover;
     }
     .recipe-info{
-        padding: 20px;
+        padding: 20px 25px;
 
         h3{
             font-size: 1.3rem;
@@ -23,7 +23,7 @@
         h4{
             font-weight: 100;
             font-size: 0.95rem;
-            margin: 0 0 8px;
+            margin: 2px 0 10px;
             color: #666;
         }
 
@@ -31,6 +31,7 @@
             color: #000;
             font-size: 0.85rem;
             font-weight: 400;
+            line-height: 150%;
         }
     }
 }
