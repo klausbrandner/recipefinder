@@ -5,7 +5,7 @@ DROP TABLE Categories;
 
 CREATE TABLE Recipes(
     rid INT(11) AUTO_INCREMENT,
-    recipe VARCHAR(255) NOT NULL,
+    recipe TEXT NOT NULL,
     description TEXT,
     preperation TEXT,
     PRIMARY KEY(rid)
