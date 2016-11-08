@@ -16,16 +16,35 @@ var RecipeListComponent = (function () {
     }
     RecipeListComponent.prototype.getRecipes = function () {
         var _this = this;
-        this.recipeService.getRecipes().then(function (recipes) { return _this.recipes = recipes; });
+        this.recipeService.getRecipes().then(function (recipes) {
+            _this.recipes = recipes;
+            _this.displayRecipes = recipes;
+        });
     };
-    RecipeListComponent.prototype.getCategory = function () {
-        var _this = this;
-        this.recipeService.getActiveCategory().then(function (category) { return _this.category = category; });
+    RecipeListComponent.prototype.ngOnChanges = function (changes) {
+        if (changes['category']) {
+            var newCat = changes['category'].currentValue;
+            this.displayRecipes = [];
+            if (newCat) {
+                for (var _i = 0, _a = this.recipes; _i < _a.length; _i++) {
+                    var recipe = _a[_i];
+                    if (recipe.categories.indexOf(newCat) > -1) {
+                        this.displayRecipes.push(recipe);
+                    }
+                }
+            }
+            else {
+                this.displayRecipes = this.recipes;
+            }
+        }
     };
     RecipeListComponent.prototype.ngOnInit = function () {
         this.getRecipes();
-        this.getCategory();
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], RecipeListComponent.prototype, "category", void 0);
     RecipeListComponent = __decorate([
         core_1.Component({
             selector: 'recipe-list',

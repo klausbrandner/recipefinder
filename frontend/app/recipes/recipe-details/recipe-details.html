@@ -5,6 +5,7 @@
         <div class="recipe-info">
             <h1>{{recipe.title}}</h1>
             <h2>{{recipe.rating}} of 5 stars</h2>
+            <p class="description">{{recipe.description}}</p>
             <div class="ingredients">
                 <div *ngFor="let ingredient of recipe.ingredients" class="row">
                     <div class="cell ingredient">
@@ -20,6 +21,29 @@
                 </div>
             </div>
             <p>{{recipe.preparation}}</p>
+
+            <div class="evaluation-box">
+                <div class="rating-box">
+                    <h2>Give us feedback!</h2>
+                    <div class="rating-table">
+                        <div>
+                            <div class="rating-value" (click)="onRate(1)">1</div>
+                        </div>
+                        <div>
+                            <div class="rating-value" (click)="onRate(2)">2</div>
+                        </div>
+                        <div>
+                            <div class="rating-value" (click)="onRate(3)">3</div>
+                        </div>
+                        <div>
+                            <div class="rating-value" (click)="onRate(4)">4</div>
+                        </div>
+                        <div>
+                            <div class="rating-value" (click)="onRate(5)">5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

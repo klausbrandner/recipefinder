@@ -5,4 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './app/layout/recipe-list-page/recipe-list-page.html'
 })
 
-export class RecipeListPageComponent { }
+export class RecipeListPageComponent {
+
+    category: string;
+
+    onSelectCategory(category:string){
+        this.category = category;
+    }
+}
