@@ -51,7 +51,7 @@ app.get('/recipes', function (req, res) {
     });
 });
 
-// http.post('/recipe',{data:'hallo'});
+
 app.post('/recipe',function(req,res){
 
     var post = {
@@ -59,7 +59,6 @@ app.post('/recipe',function(req,res){
         description: req.body.description,
         preperation: req.body.preparation
     };
-
         connection.query('INSERT INTO recipes SET ?', post, function (err, result) {
             if (err) {
                 return connection.rollback(function () {
@@ -71,8 +70,25 @@ app.post('/recipe',function(req,res){
         });
 });
 
-app.put ('/evaluate', function(req, res){
+app.post ('/evaluate', function(req, res){
+       var post = {
+           rid : req.body.rid,
+           rating : req.body.rating
+       }
 
+    if(post.rid != null) {
+        connection.query('INSERT INTO evaluations SET ?', post, function (err, result) {
+            if (err) {
+                return connection.rollback(function () {
+                    throw err;
+                });
+            }
+            console.log(result.insertId);
+            res.json('ok');
+        });
+    }else{
+        res.send("Not a valid recipe")
+    }
 });
 
 var server = app.listen(4040, function () {
