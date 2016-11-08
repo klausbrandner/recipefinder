@@ -33,7 +33,12 @@ export class RecipeService {
     }
 
     addRecipe(rid:number, title:string, description:string, preparation:string, ingredients:Ingredient[],categories:string[]) {
-        this.recipes.push(new Recipe(rid,title,description,preparation,ingredients,0,categories))
+        this.recipes.push(new Recipe(rid,title,description,preparation,ingredients,0,categories));
+        for(let category of categories){
+            if(this.categories.indexOf(category) == -1){
+                this.categories.push(category);
+            }
+        }
     }
     getRecipe(rid:number): Promise<Recipe>{
         for(let recipe of this.recipes){

@@ -1,25 +1,75 @@
 <div id="new-recipe-box">
     <h1>New Recipe</h1>
-    <h2>Add new awesome recipes in the form below.</h2>
+    <h2>Add new awesome recipes below.</h2>
     <form>
         <label for="new-recipe-form-name">
             <div class="form-label">Recipe Name</div>
-            <input [(ngModel)]="recipe.name" name="name" type="text" id="new-recipe-form-name" placeholder="Beef Steak" />
+            <input [(ngModel)]="title" name="name" type="text" id="new-recipe-form-name" placeholder="Beef Steak" />
         </label>
         <label for="new-recipe-form-desc">
             <div class="form-label">Short Description</div>
-            <textarea [(ngModel)]="recipe.description" name="description" class="small" id="new-recipe-form-desc" placeholder="Tastes great with red wine."></textarea>
+            <textarea [(ngModel)]="description" name="description" class="small" id="new-recipe-form-desc" placeholder="Tastes great with red wine."></textarea>
         </label>
 
         <div class="form-label">Ingredients</div>
-        blablabla
+        <div class="ingredients">
+            <div class="row" *ngFor="let ingredient of ingredients">
+                <div class="cell">
+                    <div class="table-item">
+                        {{ingredient.title}}
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="table-item">
+                        {{ingredient.quantity}}
+                    </div>
+                </div>
+                <div class="actionCell">
+                    <div class="button" (click)="deleteIngredient(ingredient)">delete</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <input type="text" [(ngModel)]="ingredientTitle" name="ingredientTitle" placeholder="Ingredient" />
+                </div>
+                <div class="cell">
+                    <input type="text" [(ngModel)]="ingredientQuantity" name="ingredientQuantity" placeholder="Quantity" />
+                </div>
+                <div class="actionCell">
+                    <div class="button" (click)="addIngredient()">add</div>
+                </div>
+            </div>
+        </div>
 
         <label for="new-recipe-form-prep">
             <div class="form-label">Preperation Steps</div>
-            <textarea [(ngModel)]="recipe.preperation" name="preperation" class="big" id="new-recipe-form-prep" placeholder="Put the beef in a pan."></textarea>
+            <textarea [(ngModel)]="preparation" name="preperation" class="big" id="new-recipe-form-prep" placeholder="Put the beef in a pan."></textarea>
         </label>
-        <div class="button" (click)="addRecipe()">
-            Add Recipe
+
+        <div class="form-label">Categories</div>
+        <ul class="category-list">
+            <li *ngFor="let category of categories">
+                <div class="category">
+                    <div class="category-name">
+                        {{category}}
+                    </div>
+                    <div class="category-delete" (click)="deleteCategory(category)">
+                        x
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="add-category-box">
+            <div>
+                <input type="text" [(ngModel)]="newCategory" name="newCategory" placeholder="Add category" />
+            </div>
+            <div class="add-btn">
+                <div class="button" (click)="addCategory()">add</div>
+            </div>
+        </div>
+
+        <div class="button addRecipe" (click)="addRecipe()">
+            Save Recipe
         </div>
     </form>
 </div>

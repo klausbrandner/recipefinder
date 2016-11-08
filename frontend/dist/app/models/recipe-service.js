@@ -34,6 +34,12 @@ var RecipeService = (function () {
     };
     RecipeService.prototype.addRecipe = function (rid, title, description, preparation, ingredients, categories) {
         this.recipes.push(new recipe_1.Recipe(rid, title, description, preparation, ingredients, 0, categories));
+        for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
+            var category = categories_1[_i];
+            if (this.categories.indexOf(category) == -1) {
+                this.categories.push(category);
+            }
+        }
     };
     RecipeService.prototype.getRecipe = function (rid) {
         for (var _i = 0, _a = this.recipes; _i < _a.length; _i++) {
