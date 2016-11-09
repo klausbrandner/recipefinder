@@ -126,11 +126,16 @@ app.post('/recipe',function(req,res){
                 let category = {
                     title: categories[c]
                 }
-                connection.query('INSERT INTO Categories SET ?',category,function(err, result){
-                    if(err){
-                        console.log(err);
+                connection.query('SELECT * FROM Categories WHERE title = ?',[category.title],function(err,result){
+                    if(result.length < 1){
+                        connection.query('INSERT INTO Categories SET ?',category,function(err, result){
+                            if(err){
+                                console.log(err);
+                            }
+                        });
                     }
                 });
+
             }
 
             res.json({
