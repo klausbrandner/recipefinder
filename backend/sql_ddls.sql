@@ -22,7 +22,7 @@ CREATE TABLE Ingredients(
 CREATE TABLE Evaluations(
     eid INT(11) AUTO_INCREMENT,
     rid INT(11),
-    rating INT(1) NOT NULL,
+    rating FLOAT NOT NULL,
     FOREIGN KEY (rid) REFERENCES Recipes(rid) ON DELETE CASCADE,
     PRIMARY KEY (eid)
 );
