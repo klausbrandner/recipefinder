@@ -58,6 +58,7 @@ export class NewRecipePageComponent {
             this.title,
             this.description,
             this.preparation,
+            0,
             this.ingredients,
             this.categories
         );

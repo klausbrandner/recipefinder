@@ -9,11 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
 var recipe_1 = require("./recipe");
 var ingredient_1 = require("./ingredient");
 var RecipeService = (function () {
-    function RecipeService() {
-        this.init();
+    function RecipeService(http) {
+        this.http = http;
+        this.service = 'http://localhost:4040';
+        //this.init();
+        this.recipes = [];
+        this.categories = [];
     }
     RecipeService.prototype.init = function () {
         //just mocked data for now
@@ -30,10 +37,25 @@ var RecipeService = (function () {
         this.recipes.push(new recipe_1.Recipe(6, "Wrapps", "Mexican Dish", "Fill wrapps with everything you want.", [ing1, ing2], 4.5, ['Meat', 'Mexican']));
     };
     RecipeService.prototype.getRecipes = function () {
-        return Promise.resolve(this.recipes);
+        var _this = this;
+        this.recipes = [];
+        return this.http.get(this.service + '/recipes').map(function (res) {
+            var body = res.json();
+            console.log(body);
+            for (var _i = 0, body_1 = body; _i < body_1.length; _i++) {
+                var recipe = body_1[_i];
+                var ingredients = [];
+                for (var _a = 0, _b = recipe.ingredients; _a < _b.length; _a++) {
+                    var ingredient = _b[_a];
+                    ingredients.push(new ingredient_1.Ingredient(ingredient.title, ingredient.quantity));
+                }
+                _this.addRecipe(recipe.rid, recipe.title, recipe.description, recipe.preparation, recipe.rating, ingredients, recipe.categories);
+            }
+            return _this.recipes;
+        });
     };
-    RecipeService.prototype.addRecipe = function (rid, title, description, preparation, ingredients, categories) {
-        this.recipes.push(new recipe_1.Recipe(rid, title, description, preparation, ingredients, 0, categories));
+    RecipeService.prototype.addRecipe = function (rid, title, description, preparation, rating, ingredients, categories) {
+        this.recipes.push(new recipe_1.Recipe(rid, title, description, preparation, ingredients, rating, categories));
         for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
             var category = categories_1[_i];
             if (this.categories.indexOf(category) == -1) {
@@ -58,7 +80,7 @@ var RecipeService = (function () {
     };
     RecipeService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], RecipeService);
     return RecipeService;
 }());

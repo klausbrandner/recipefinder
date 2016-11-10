@@ -18,7 +18,7 @@ export class RecipeListComponent implements OnInit, OnChanges {
     constructor(private recipeService: RecipeService) { }
 
     getRecipes(): void {
-        this.recipeService.getRecipes().then((recipes) => {
+        this.recipeService.getRecipes().subscribe((recipes) => {
             this.recipes = recipes;
             this.displayRecipes = recipes;
         });

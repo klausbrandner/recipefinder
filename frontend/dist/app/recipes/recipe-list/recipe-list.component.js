@@ -16,7 +16,7 @@ var RecipeListComponent = (function () {
     }
     RecipeListComponent.prototype.getRecipes = function () {
         var _this = this;
-        this.recipeService.getRecipes().then(function (recipes) {
+        this.recipeService.getRecipes().subscribe(function (recipes) {
             _this.recipes = recipes;
             _this.displayRecipes = recipes;
         });
