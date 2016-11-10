@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable }     from 'rxjs/Observable';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import { Recipe } from "./recipe";
 import { Ingredient } from "./ingredient";
 
 @Injectable()
 export class RecipeService {
 
-    recipes: Recipe[];
-    categories: string[];
+    private recipes: Recipe[];
+    private categories: string[];
+    private service = 'http://localhost:4040';
 
-    constructor() {
-        this.init();
+    constructor (private http: Http) {
+        //this.init();
+        this.recipes = [];
+        this.categories = [];
     }
 
     init() {
@@ -28,12 +37,31 @@ export class RecipeService {
         this.recipes.push(new Recipe(6,"Wrapps","Mexican Dish","Fill wrapps with everything you want.",[ing1,ing2],4.5,['Meat','Mexican']));
     }
 
-    getRecipes(): Promise<Recipe[]> {
-        return Promise.resolve(this.recipes);
+    getRecipes(): Observable<Recipe[]> {
+        this.recipes = [];
+        return this.http.get(this.service + '/recipes').map((res) => {
+            let body = res.json();
+            console.log(body);
+            for(let recipe of body){
+                var ingredients = [];
+                for(let ingredient of recipe.ingredients){
+                    ingredients.push(new Ingredient(ingredient.title, ingredient.quantity));
+                }
+                this.addRecipe(recipe.rid,
+                    recipe.title,
+                    recipe.description,
+                    recipe.preparation,
+                    recipe.rating,
+                    ingredients,
+                    recipe.categories
+                );
+            }
+            return this.recipes;
+        });
     }
 
-    addRecipe(rid:number, title:string, description:string, preparation:string, ingredients:Ingredient[],categories:string[]) {
-        this.recipes.push(new Recipe(rid,title,description,preparation,ingredients,0,categories));
+    addRecipe(rid:number, title:string, description:string, preparation:string, rating:number, ingredients:Ingredient[],categories:string[]) {
+        this.recipes.push(new Recipe(rid,title,description,preparation,ingredients,rating,categories));
         for(let category of categories){
             if(this.categories.indexOf(category) == -1){
                 this.categories.push(category);

@@ -44,7 +44,7 @@ var NewRecipePageComponent = (function () {
         }
     };
     NewRecipePageComponent.prototype.addRecipe = function () {
-        this.recipeService.addRecipe(0, this.title, this.description, this.preparation, this.ingredients, this.categories);
+        this.recipeService.addRecipe(0, this.title, this.description, this.preparation, 0, this.ingredients, this.categories);
         this.title = '';
         this.description = '';
         this.preparation = '';
