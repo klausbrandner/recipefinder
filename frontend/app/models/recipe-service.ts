@@ -19,6 +19,7 @@ export class RecipeService {
         //this.init();
         this.recipes = [];
         this.categories = [];
+        
     }
 
     init() {
@@ -68,6 +69,11 @@ export class RecipeService {
             }
         }
     }
+    
+    createRecipe(title:string,description:string,preparation:string,ingredients:Ingredient[],categories:string[]) {
+        
+    }
+    
     getRecipe(rid:number): Promise<Recipe>{
         for(let recipe of this.recipes){
             if(recipe.rid == rid){
@@ -76,6 +82,7 @@ export class RecipeService {
         }
         return Promise.resolve({});
     }
+    
     rateRecipe(recipe:Recipe, rating:number, cb): void {
         cb("done");
     }
