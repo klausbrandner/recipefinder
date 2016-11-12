@@ -17,14 +17,25 @@ var RecipeDetailsComponent = (function () {
         this.message = '';
         this.rated = 0;
     }
+    RecipeDetailsComponent.prototype.getRating = function () {
+        if (this.recipe.rating) {
+            return this.recipe.rating.toFixed(1);
+        }
+        else {
+            return '0';
+        }
+    };
     RecipeDetailsComponent.prototype.onRate = function (rating) {
         if (this.rated < 1) {
             var self = this;
-            self.rated = rating;
-            self.message = 'Thanks for rating!';
-            setTimeout(function () {
-                self.message = '';
-            }, 5000);
+            this.recipeService.evaluate(this.recipe.rid, rating).subscribe(function (newRating) {
+                self.rated = rating;
+                self.message = 'Thanks for rating!';
+                self.recipe.rating = newRating;
+                setTimeout(function () {
+                    self.message = '';
+                }, 5000);
+            });
         }
     };
     __decorate([

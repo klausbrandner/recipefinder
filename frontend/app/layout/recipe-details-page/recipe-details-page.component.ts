@@ -11,13 +11,13 @@ import { Recipe } from '../../models/recipe';
 
 export class RecipeDetailsPageComponent implements OnInit {
 
-    recipe = {};
+    private recipe = {};
 
     constructor(
         private recipeService: RecipeService,
         private route: ActivatedRoute,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit() {
         let rid = +this.route.snapshot.params['rid'];

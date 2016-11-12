@@ -59,28 +59,29 @@ export class NewRecipePageComponent {
     }
 
     addRecipe(): void {
-        // TODO call service function
-
         if(this.buttonText == 'Save Recipe'){
             var self = this;
-            self.recipeService.addRecipe(0,
+            self.buttonText = 'loading...';
+            self.recipeService.createRecipe(
                 self.title,
                 self.photo,
                 self.description,
                 self.preparation,
-                0,
                 self.ingredients,
-                self.categories
+                self.categories,
+                function(){
+                    self.title = '';
+                    self.photo = '';
+                    self.description = '';
+                    self.preparation = '';
+                    self.ingredients = [];
+                    self.categories = [];
+                    self.buttonText = 'Thank you!';
+                    setTimeout(function(){
+                        self.buttonText = 'Save Recipe';
+                    },5000);
+                }
             );
-            self.title = '';
-            self.description = '';
-            self.preparation = '';
-            self.ingredients = [];
-            self.categories = [];
-            self.buttonText = 'Thank you!';
-            setTimeout(function(){
-                self.buttonText = 'Save Recipe';
-            },5000);
         }
     }
 

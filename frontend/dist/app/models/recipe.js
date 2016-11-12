@@ -2,25 +2,18 @@
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var Recipe = (function () {
-    function Recipe(http, rid, title, description, preparation, ingredients, rating, categories) {
-        this.http = http;
-        this.service = 'http://localhost:3306';
+    function Recipe(rid, title, photo, description, preparation, ingredients, rating, categories) {
         this.rid = rid;
         this.title = title;
+        this.photo = photo;
         this.description = description;
         this.preparation = preparation;
         this.ingredients = ingredients;
         this.rating = rating;
         this.categories = categories;
     }
-    Recipe.prototype.evaluate = function (rating, cb) {
-        var data = {
-            rid: this.rid,
-            rating: rating,
-        };
-        this.http.post(this.service + "/evaluate", data).map(function (res) {
-            cb("done");
-        });
+    Recipe.prototype.getRating = function () {
+        return this.rating.toFixed(1);
     };
     return Recipe;
 }());
