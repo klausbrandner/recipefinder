@@ -1,6 +1,10 @@
 "use strict";
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
 var Recipe = (function () {
-    function Recipe(rid, title, description, preparation, ingredients, rating, categories) {
+    function Recipe(http, rid, title, description, preparation, ingredients, rating, categories) {
+        this.http = http;
+        this.service = 'http://localhost:3306';
         this.rid = rid;
         this.title = title;
         this.description = description;
@@ -9,9 +13,14 @@ var Recipe = (function () {
         this.rating = rating;
         this.categories = categories;
     }
-    Recipe.prototype.evaluate = function (rating) {
-        //POST add rating to db
-        console.log("Recipe: " + this.title + " Stars: " + rating);
+    Recipe.prototype.evaluate = function (rating, cb) {
+        var data = {
+            rid: this.rid,
+            rating: rating,
+        };
+        this.http.post(this.service + "/evaluate", data).map(function (res) {
+            cb("done");
+        });
     };
     return Recipe;
 }());

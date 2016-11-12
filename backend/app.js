@@ -11,7 +11,7 @@ let connection = mysql.createConnection({
     host    : 'localhost',
     database: 'recipefinder',
     user: 'root',
-    password: ''
+    password: 'SQLPass55'
 });
 
 
@@ -85,7 +85,6 @@ app.get('/recipes', function (req, res) {
                         }
                     });
                 });
-
             }
         }
     });
