@@ -1,8 +1,10 @@
+$header-height: 80px;
+
 #header{
     position: relative;
     width: 100%;
     padding: 0 40px;
-    line-height: 80px;
+    line-height: $header-height;
     text-align: center;
     box-sizing: border-box;
     background: #fff;
@@ -20,13 +22,25 @@
         top: 0;
         right: 0;
         color: #666;
-        height: 100%;
-        padding: 0 20px;
+        height: $header-height;
+        width: $header-height;
+        padding: 20px;
+        box-sizing: border-box;
         transition: all 0.4s;
+
+        img{
+            width: 40px;
+            height: 40px;
+            transition: all 0.4s;
+        }
 
         &:hover{
             background: #ededed;
             color: #000;
+
+            img{
+                transform: scale(1.1);
+            }
         }
     }
 }
