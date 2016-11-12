@@ -90,8 +90,20 @@
                         background: #E0395C;
                         color: #fff;
                     }
+                    &.selected{
+                        background: #E0395C;
+                        color: #fff;
+                    }
                 }
             }
+        }
+
+
+        .rating-feedback{
+            margin: 20px 0 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            float: right;
         }
     }
 }

@@ -15,10 +15,12 @@ var NewRecipePageComponent = (function () {
     function NewRecipePageComponent(recipeService) {
         this.recipeService = recipeService;
         this.title = '';
+        this.photo = '';
         this.description = '';
         this.preparation = '';
         this.ingredients = [];
         this.categories = [];
+        this.buttonText = 'Save Recipe';
     }
     NewRecipePageComponent.prototype.addIngredient = function () {
         this.ingredients.push(new ingredient_1.Ingredient(this.ingredientTitle, this.ingredientQuantity));
@@ -44,12 +46,20 @@ var NewRecipePageComponent = (function () {
         }
     };
     NewRecipePageComponent.prototype.addRecipe = function () {
-        this.recipeService.addRecipe(0, this.title, this.description, this.preparation, 0, this.ingredients, this.categories);
-        this.title = '';
-        this.description = '';
-        this.preparation = '';
-        this.ingredients = [];
-        this.categories = [];
+        // TODO call service function
+        if (this.buttonText == 'Save Recipe') {
+            var self = this;
+            self.recipeService.addRecipe(0, self.title, self.photo, self.description, self.preparation, 0, self.ingredients, self.categories);
+            self.title = '';
+            self.description = '';
+            self.preparation = '';
+            self.ingredients = [];
+            self.categories = [];
+            self.buttonText = 'Thank you!';
+            setTimeout(function () {
+                self.buttonText = 'Save Recipe';
+            }, 5000);
+        }
     };
     NewRecipePageComponent = __decorate([
         core_1.Component({

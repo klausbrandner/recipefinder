@@ -12,6 +12,7 @@ import { Ingredient } from '../../models/ingredient';
 export class NewRecipePageComponent {
 
     title: string;
+    photo: string;
     description: string;
     preparation: string;
     ingredients: Ingredient[];
@@ -20,12 +21,16 @@ export class NewRecipePageComponent {
     categories: string[];
     newCategory: string;
 
+    buttonText: string;
+
     constructor(private recipeService: RecipeService) {
         this.title = '';
+        this.photo = '';
         this.description = '';
         this.preparation = '';
         this.ingredients = [];
         this.categories = [];
+        this.buttonText = 'Save Recipe';
     }
 
     addIngredient(): void{
@@ -54,19 +59,29 @@ export class NewRecipePageComponent {
     }
 
     addRecipe(): void {
-        this.recipeService.addRecipe(0,
-            this.title,
-            this.description,
-            this.preparation,
-            0,
-            this.ingredients,
-            this.categories
-        );
-        this.title = '';
-        this.description = '';
-        this.preparation = '';
-        this.ingredients = [];
-        this.categories = [];
+        // TODO call service function
+
+        if(this.buttonText == 'Save Recipe'){
+            var self = this;
+            self.recipeService.addRecipe(0,
+                self.title,
+                self.photo,
+                self.description,
+                self.preparation,
+                0,
+                self.ingredients,
+                self.categories
+            );
+            self.title = '';
+            self.description = '';
+            self.preparation = '';
+            self.ingredients = [];
+            self.categories = [];
+            self.buttonText = 'Thank you!';
+            setTimeout(function(){
+                self.buttonText = 'Save Recipe';
+            },5000);
+        }
     }
 
 }
