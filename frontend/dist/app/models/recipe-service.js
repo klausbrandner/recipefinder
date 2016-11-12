@@ -17,8 +17,7 @@ var ingredient_1 = require("./ingredient");
 var RecipeService = (function () {
     function RecipeService(http) {
         this.http = http;
-        this.service = 'http://localhost:3306';
-        //this.init();
+        this.service = 'http://localhost:4040';
         this.recipes = [];
         this.categories = [];
     }
@@ -35,13 +34,13 @@ var RecipeService = (function () {
                     var ingredient = _b[_a];
                     ingredients.push(new ingredient_1.Ingredient(ingredient.title, ingredient.quantity));
                 }
-                _this.addRecipe(recipe.rid, recipe.title, recipe.description, recipe.preparation, recipe.rating, ingredients, recipe.categories);
+                _this.addRecipe(recipe.rid, recipe.title, recipe.photo, recipe.description, recipe.preparation, recipe.rating, ingredients, recipe.categories);
             }
             return _this.recipes;
         });
     };
-    RecipeService.prototype.addRecipe = function (rid, title, description, preparation, rating, ingredients, categories) {
-        this.recipes.push(new recipe_1.Recipe(this.http, rid, title, description, preparation, ingredients, rating, categories));
+    RecipeService.prototype.addRecipe = function (rid, title, photo, description, preparation, rating, ingredients, categories) {
+        this.recipes.push(new recipe_1.Recipe(rid, title, photo, description, preparation, ingredients, rating, categories));
         for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
             var category = categories_1[_i];
             if (this.categories.indexOf(category) == -1) {
@@ -49,38 +48,43 @@ var RecipeService = (function () {
             }
         }
     };
-    RecipeService.prototype.createRecipe = function (title, description, preparation, ingredients, categories) {
+    RecipeService.prototype.createRecipe = function (title, photo, description, preparation, ingredients, categories, done) {
         var _this = this;
         var data = {
             title: title,
+            photo: photo,
             description: description,
             preparation: preparation,
             ingredients: ingredients,
             categories: categories,
         };
-        this.http.post(this.service + '/recipes', data).map(function (res) {
-            var body = res.json();
-            _this.addRecipe(body.insertId, title, description, preparation, 0, ingredients, categories);
+        this.http.post(this.service + '/recipe', data).map(function (res) {
+            return res.json();
+        }).subscribe(function (data) {
+            _this.addRecipe(data.rid, title, photo, description, preparation, 0, ingredients, categories);
+            done();
         });
-        getRecipe(rid, number);
-        Promise < recipe_1.Recipe > {
-            for: function (let, of) {
-                if (let === void 0) { let = recipe; }
-                if (of === void 0) { of = this.recipes; }
-                if (recipe.rid == rid) {
-                    return Promise.resolve(recipe);
-                }
-            },
-            return: Promise.resolve({})
+    };
+    RecipeService.prototype.getRecipe = function (rid) {
+        for (var _i = 0, _a = this.recipes; _i < _a.length; _i++) {
+            var recipe = _a[_i];
+            if (recipe.rid == rid) {
+                return Promise.resolve(recipe);
+            }
+        }
+        return Promise.resolve({});
+    };
+    RecipeService.prototype.getCategories = function () {
+        return Promise.resolve(this.categories);
+    };
+    RecipeService.prototype.evaluate = function (rid, rating) {
+        var data = {
+            rid: rid,
+            rating: rating
         };
-        rateRecipe(recipe, recipe_1.Recipe, rating, number, cb);
-        void {
-            cb: function () { }, "done": 
-        };
-        getCategories();
-        Promise < string[] > {
-            return: Promise.resolve(this.categories)
-        };
+        return this.http.post(this.service + "/evaluate", data).map(function (res) {
+            return res.json().rating;
+        });
     };
     RecipeService = __decorate([
         core_1.Injectable(), 

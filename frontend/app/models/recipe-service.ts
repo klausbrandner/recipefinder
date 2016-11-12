@@ -7,20 +7,18 @@ import 'rxjs/add/operator/catch';
 
 import { Recipe } from "./recipe";
 import { Ingredient } from "./ingredient";
-import addRange = ts.addRange;
 
 @Injectable()
 export class RecipeService {
 
     private recipes: Recipe[];
     private categories: string[];
-    private service = 'http://localhost:3306';
+    private service = 'http://localhost:4040';
 
     constructor (private http: Http) {
-        //this.init();
         this.recipes = [];
         this.categories = [];
-        
+
     }
 
     getRecipes(): Observable<Recipe[]> {
@@ -35,6 +33,7 @@ export class RecipeService {
                 }
                 this.addRecipe(recipe.rid,
                     recipe.title,
+                    recipe.photo,
                     recipe.description,
                     recipe.preparation,
                     recipe.rating,
@@ -46,8 +45,8 @@ export class RecipeService {
         });
     }
 
-    addRecipe(rid:number, title:string, description:string, preparation:string, rating:number, ingredients:Ingredient[],categories:string[]) {
-        this.recipes.push(new Recipe(this.http,rid,title,description,preparation,ingredients,rating,categories));
+    addRecipe(rid:number, title:string, photo:string, description:string, preparation:string, rating:number, ingredients:Ingredient[],categories:string[]) {
+        this.recipes.push(new Recipe(rid,title,photo,description,preparation,ingredients,rating,categories));
         for(let category of categories){
             if(this.categories.indexOf(category) == -1){
                 this.categories.push(category);
@@ -55,30 +54,25 @@ export class RecipeService {
         }
     }
 
-    createRecipe(title:string,description:string,preparation:string,ingredients:Ingredient[],categories:string[]) {
-
-        var data = {
-            title:title,
-            description:description,
-            preparation:preparation,
-            ingredients:ingredients,
-            categories:categories,
+    createRecipe(title:string,photo:string,description:string,preparation:string,ingredients:Ingredient[],categories:string[],done): void {
+        let data = {
+            title: title,
+            photo: photo,
+            description: description,
+            preparation: preparation,
+            ingredients: ingredients,
+            categories: categories,
         };
-
-        this.http.post(this.service + '/recipes',data).map((res) => {
-
-            let body = res.json();
-            this.addRecipe(body.insertId,title,description,preparation,0,ingredients,categories);
-
+        this.http.post(this.service + '/recipe',data).map((res) => {
+            return res.json();
+        }).subscribe((data) => {
+            this.addRecipe(data.rid,title,photo,description,preparation,0,ingredients,categories);
+            done();
         });
+    }
 
 
-
-
-
-
-
-        getRecipe(rid:number): Promise<Recipe>{
+    getRecipe(rid:number): Promise<Recipe>{
         for(let recipe of this.recipes){
             if(recipe.rid == rid){
                 return Promise.resolve(recipe);
@@ -86,14 +80,20 @@ export class RecipeService {
         }
         return Promise.resolve({});
     }
-    
-    rateRecipe(recipe:Recipe, rating:number, cb): void {
-        cb("done");
-    }
 
 
     getCategories(): Promise<string[]> {
         return Promise.resolve(this.categories);
+    }
+
+    evaluate(rid:number, rating:number): Observable<number> {
+        let data = {
+            rid: rid,
+            rating: rating
+        };
+        return this.http.post(this.service + "/evaluate",data).map((res) => {
+            return res.json().rating;
+        });
     }
 
 }

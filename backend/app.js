@@ -11,7 +11,7 @@ let connection = mysql.createConnection({
     host    : 'localhost',
     database: 'recipefinder',
     user: 'root',
-    password: 'SQLPass55'
+    password: ''
 });
 
 
@@ -58,8 +58,12 @@ app.get('/recipes', function (req, res) {
         if(err){
             res.status(500).send("Unable to get recipes.");
         }else{
+            var ctr = 0;
             for(let r in recipes){
                 let recipe = recipes[r];
+                if(!recipe.rating){
+                    recipes[r].rating = 0;
+                }
 
                 // Get ingredients
                 connection.query('SELECT title, quantity FROM Ingredients WHERE rid = ?',[recipe.rid],function(err,ingredients){
@@ -68,7 +72,6 @@ app.get('/recipes', function (req, res) {
                     }
                     recipes[r].ingredients = ingredients;
 
-                    var ctr = 0;
                     connection.query('SELECT c.title FROM Recipes r LEFT JOIN BelongsTo b ON b.rid=r.rid LEFT JOIN Categories c ON c.cid=b.cid WHERE r.rid = ?',[recipe.rid],function(err,categories){
                         if(err){
                             res.status(500).send("Unable to get recipes.");
@@ -96,23 +99,29 @@ app.get('/recipes', function (req, res) {
 app.post('/recipe',function(req,res){
     let recipe = {
         title: req.body.title,
+        photo: req.body.photo,
         description: req.body.description,
         preparation: req.body.preparation
     };
+    console.log(recipe);
     let ingredients = req.body.ingredients;
     let categories = req.body.categories;
 
-    connection.query('INSERT INTO Recipes SET ?', recipe, function (err, result) {
+    connection.query('INSERT INTO Recipes SET ?', recipe, function (err, newRecipe) {
         if (err) {
             return connection.rollback(function () {
                 throw err;
             });
         }else{
-            console.log(result.insertId);
+            console.log(newRecipe.insertId);
 
             // INSERT Ingredients
             for(let i in ingredients){
-                let ingredient = ingredients[i];
+                let ingredient = {
+                    rid: newRecipe.insertId,
+                    title: ingredients[i].title,
+                    quantity: ingredients[i].quantity
+                };
                 connection.query('INSERT INTO Ingredients SET ?',ingredient,function(err, result){
                     if(err){
                         console.log(err);
@@ -131,26 +140,39 @@ app.post('/recipe',function(req,res){
                             if(err){
                                 console.log(err);
                             }
+                            AddRecipeToCategory(newRecipe.insertId,result.insertId);
                         });
+                    }else{
+                        AddRecipeToCategory(newRecipe.insertId,result[0].cid);
                     }
                 });
-
             }
 
             res.json({
-                rid: result.insertId
+                rid: newRecipe.insertId
             });
         }
     });
 });
+function AddRecipeToCategory(rid,cid){
+    let data = {
+        rid: rid,
+        cid: cid
+    };
+    connection.query('INSERT INTO BelongsTo SET ?',data,function(err,result){
+        if(err){
+            console.log(err);
+        }
+    });
+}
 
-app.post ('/evaluate', function(req, res){
-   let post = {
+app.post('/evaluate', function(req, res){
+    let post = {
        rid : req.body.rid,
        rating : req.body.rating
-   }
+    }
 
-   if(post.rid != null) {
+    if(post.rid != null) {
         connection.query('INSERT INTO evaluations SET ?', post, function (err, result) {
             if (err) {
                 return connection.rollback(function () {
@@ -158,7 +180,11 @@ app.post ('/evaluate', function(req, res){
                 });
             }
             console.log(result.insertId);
-            res.send('success');
+            connection.query('SELECT AVG(rating) AS rating FROM Evaluations WHERE rid = ?',[post.rid],function(err,rating){
+                res.json({
+                    rating: rating[0].rating
+                });
+            });
         });
     }else{
         res.status(400).send("Not a valid recipe.")
@@ -166,5 +192,5 @@ app.post ('/evaluate', function(req, res){
 });
 
 var server = app.listen(4040, function () {
-    console.log('Recipe Finder listening on port 4040!');
+    console.log('Recipefinder listening on port 4040!');
 });

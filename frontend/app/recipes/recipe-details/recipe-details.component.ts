@@ -19,17 +19,25 @@ export class RecipeDetailsComponent {
         this.rated = 0;
     }
 
+    getRating(): string {
+        if(this.recipe.rating){
+            return this.recipe.rating.toFixed(1);
+        }else{
+            return '0';
+        }
+    }
+
     onRate(rating:number): void {
         if(this.rated < 1){
             var self = this;
-            self.rated = rating;
-            self.message = 'Thanks for rating!';
-            setTimeout(function(){
-                self.message = '';
-            },5000);
-            /*this.recipe.evaluate(rating,function(data){
+            this.recipeService.evaluate(this.recipe.rid,rating).subscribe((newRating) => {
+                self.rated = rating;
                 self.message = 'Thanks for rating!';
-            });*/
+                self.recipe.rating = newRating;
+                setTimeout(function(){
+                    self.message = '';
+                },5000);
+            });
         }
     }
 }

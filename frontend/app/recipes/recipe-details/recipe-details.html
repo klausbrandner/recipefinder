@@ -1,10 +1,9 @@
 <div id="recipe-details">
     <div class="recipe-details-box">
-        <div class="recipe-image">
-        </div>
+        <div class="recipe-image" [ngStyle]="{'background':'url(' + recipe.photo + ') center center / cover'}"></div>
         <div class="recipe-info">
             <h1>{{recipe.title}}</h1>
-            <h2>{{recipe.rating}} of 5 stars</h2>
+            <h2>{{getRating()}} of 5 stars</h2>
             <p class="description">{{recipe.description}}</p>
             <div class="ingredients">
                 <div *ngFor="let ingredient of recipe.ingredients" class="row">
@@ -28,7 +27,7 @@
                     <div class="rating-table">
                         <div *ngFor="let num of [1,2,3,4,5]">
                             <div class="rating-value"
-                                [class.selected]="num === rated" 
+                                [class.selected]="num === rated"
                                 (click)="onRate(num)">
                                 {{num}}
                             </div>
