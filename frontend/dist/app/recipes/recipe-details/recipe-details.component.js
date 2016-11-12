@@ -14,19 +14,17 @@ var recipe_1 = require('../../models/recipe');
 var RecipeDetailsComponent = (function () {
     function RecipeDetailsComponent(recipeService) {
         this.recipeService = recipeService;
+        this.message = '';
+        this.rated = 0;
     }
     RecipeDetailsComponent.prototype.onRate = function (rating) {
-        if (!this.rated) {
+        if (this.rated < 1) {
             var self = this;
-            this.recipeService.rateRecipe(this.recipe, rating, function (status) {
-                if (status === "done") {
-                    console.log("rated - " + rating);
-                    self.rated = true;
-                }
-                else {
-                    console.log("an error occured");
-                }
-            });
+            self.rated = rating;
+            self.message = 'Thanks for rating!';
+            setTimeout(function () {
+                self.message = '';
+            }, 5000);
         }
     };
     __decorate([

@@ -6,6 +6,7 @@ DROP TABLE Categories;
 CREATE TABLE Recipes(
     rid INT(11) AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
+    photo VARCHAR(255),
     description TEXT,
     preperation TEXT,
     PRIMARY KEY(rid)
@@ -16,7 +17,7 @@ CREATE TABLE Ingredients(
     title VARCHAR(255) NOT NULL,
     quantity VARCHAR(100) NOT NULL,
     FOREIGN KEY (rid) REFERENCES Recipes(rid) ON DELETE CASCADE,
-    PRIMARY KEY (rid, ingredient)
+    PRIMARY KEY (rid, title)
 );
 
 CREATE TABLE Evaluations(

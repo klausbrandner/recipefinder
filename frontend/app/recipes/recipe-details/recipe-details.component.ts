@@ -11,21 +11,25 @@ import { Recipe } from '../../models/recipe';
 export class RecipeDetailsComponent {
     @Input() recipe: Recipe;
 
-    rated: boolean;
+    private rated: number;
+    private message: string;
 
-    constructor(private recipeService: RecipeService) { }
+    constructor(private recipeService: RecipeService) {
+        this.message = '';
+        this.rated = 0;
+    }
 
     onRate(rating:number): void {
-        if(!this.rated){
+        if(this.rated < 1){
             var self = this;
-            this.recipeService.rateRecipe(this.recipe, rating, function(status){
-                if(status === "done"){
-                    console.log("rated - " + rating);
-                    self.rated = true;
-                }else{
-                    console.log("an error occured");
-                }
-            });
+            self.rated = rating;
+            self.message = 'Thanks for rating!';
+            setTimeout(function(){
+                self.message = '';
+            },5000);
+            /*this.recipe.evaluate(rating,function(data){
+                self.message = 'Thanks for rating!';
+            });*/
         }
     }
 }

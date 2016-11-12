@@ -1,10 +1,14 @@
 <div id="new-recipe-box">
     <h1>New Recipe</h1>
-    <h2>Add new awesome recipes below.</h2>
+    <h2>Add a new awesome recipe below.</h2>
     <form>
         <label for="new-recipe-form-name">
             <div class="form-label">Recipe Name</div>
             <input [(ngModel)]="title" name="name" type="text" id="new-recipe-form-name" placeholder="Beef Steak" />
+        </label>
+        <label for="new-recipe-form-photo">
+            <div class="form-label">Recipe Photo</div>
+            <input [(ngModel)]="photo" name="name" type="text" id="new-recipe-form-photo" placeholder="http://www.hello.com/myawesomephoto.jpg" />
         </label>
         <label for="new-recipe-form-desc">
             <div class="form-label">Short Description</div>
@@ -43,7 +47,7 @@
 
         <label for="new-recipe-form-prep">
             <div class="form-label">Preperation Steps</div>
-            <textarea [(ngModel)]="preparation" name="preperation" class="big" id="new-recipe-form-prep" placeholder="Put the beef in a pan."></textarea>
+            <textarea [(ngModel)]="preparation" name="preperation" class="big" id="new-recipe-form-prep" placeholder="Put the beef on the grill."></textarea>
         </label>
 
         <div class="form-label">Categories</div>
@@ -69,7 +73,7 @@
         </div>
 
         <div class="button addRecipe" (click)="addRecipe()">
-            Save Recipe
+            {{buttonText}}
         </div>
     </form>
 </div>
