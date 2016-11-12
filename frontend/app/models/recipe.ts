@@ -14,7 +14,7 @@ export class Recipe {
     ingredients: Ingredient[];
     rating: number;
     categories: string[];
-    private service = 'http://localhost:4040';
+    private service = 'http://localhost:3306';
 
 
     constructor(private http:Http, rid:number, title:string, description:string, preparation:string, ingredients:Ingredient[], rating:number, categories:string[]) {
@@ -28,7 +28,6 @@ export class Recipe {
     }
 
     evaluate(rating:number, cb) {
-        //Object id und rating
         var data = {
             rid: this.rid,
             rating: rating,
@@ -38,9 +37,6 @@ export class Recipe {
             cb("done");
         });
 
-
-
-        console.log("Recipe: " + this.title + " Stars: " + rating);
     }
 
 }

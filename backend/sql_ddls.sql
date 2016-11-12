@@ -16,7 +16,7 @@ CREATE TABLE Ingredients(
     title VARCHAR(255) NOT NULL,
     quantity VARCHAR(100) NOT NULL,
     FOREIGN KEY (rid) REFERENCES Recipes(rid) ON DELETE CASCADE,
-    PRIMARY KEY (rid, ingredient)
+    PRIMARY KEY (rid, title)
 );
 
 CREATE TABLE Evaluations(
