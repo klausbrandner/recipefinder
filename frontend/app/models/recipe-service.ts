@@ -15,7 +15,7 @@ export class RecipeService {
 
     private recipes: Recipe[];
     private categories: string[];
-    private service = 'http://localhost:4040';
+    private service = 'http://35.167.61.204:9000';
     private fbToken: string;
 
     constructor (private http: Http) {
