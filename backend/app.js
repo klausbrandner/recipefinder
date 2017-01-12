@@ -4,7 +4,8 @@ let express = require('express'),
     app = express(),
     cors = require('cors'),
     bodyParser = require('body-parser'),
-    mysql = require('mysql');
+    mysql = require('mysql'),
+    request = require('request');
 
 
 let connection = mysql.createConnection({
@@ -33,10 +34,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+// Authentication Middleware
+function Authenticate(req, res, next){
+
+    var token = req.body.token || req.query.access_token;
+
+    if(token){
+        request("https://graph.facebook.com/me?access_token=" + token, function(err, response, body){
+            if(err){
+                res.status(403).send("facebook api error");
+            }else{
+                var responseBody = JSON.parse(body);
+                if(responseBody.error){
+                    res.status(403).send(responseBody.error.message);
+                }else{
+                    next();
+                }
+            }
+        });
+    }else{
+        res.status(403).send("invalid facebook token");
+    }
+
+}
+
 /**
     get categories
 */
-app.get('/categories', function (req, res) {
+app.get('/categories', Authenticate, function (req, res) {
     connection.query('SELECT * FROM Categories', function(err, categories){
         if(err){
             res.status(500).send("Unable to get categories.");
@@ -53,7 +78,7 @@ app.get('/categories', function (req, res) {
 /**
     get recipes
 */
-app.get('/recipes', function (req, res) {
+app.get('/recipes', Authenticate, function (req, res) {
     connection.query('SELECT *, (SELECT AVG(e.rating) FROM Evaluations e WHERE e.rid = r.rid) AS rating FROM Recipes r', function(err, recipes){
         if(err){
             res.status(500).send("Unable to get recipes.");
@@ -96,7 +121,7 @@ app.get('/recipes', function (req, res) {
 /**
     insert recipe
 */
-app.post('/recipe',function(req,res){
+app.post('/recipe', Authenticate, function(req,res){
     let recipe = {
         title: req.body.title,
         photo: req.body.photo,
@@ -166,7 +191,7 @@ function AddRecipeToCategory(rid,cid){
     });
 }
 
-app.post('/evaluate', function(req, res){
+app.post('/evaluate', Authenticate, function(req, res){
     let post = {
        rid : req.body.rid,
        rating : req.body.rating

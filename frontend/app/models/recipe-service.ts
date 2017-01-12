@@ -8,22 +8,50 @@ import 'rxjs/add/operator/catch';
 import { Recipe } from "./recipe";
 import { Ingredient } from "./ingredient";
 
+declare const FB:any;
+
 @Injectable()
 export class RecipeService {
 
     private recipes: Recipe[];
     private categories: string[];
     private service = 'http://localhost:4040';
+    private fbToken: string;
 
     constructor (private http: Http) {
         this.recipes = [];
         this.categories = [];
 
+        FB.init({
+            appId      : '255658018202456',
+            cookie     : false,
+            xfbml      : true,
+            version    : 'v2.5'
+        });
+
+        FB.getLoginStatus(response => {
+            this.statusChangeCallback(response);
+        });
     }
+
+    loginToFacebook(){
+        var self = this;
+        FB.login(function(response){
+            window.location.reload();
+        });
+    }
+    statusChangeCallback(resp) {
+        if (resp.status === 'connected') {
+            console.log("connected to facebook ");
+            this.fbToken = resp.authResponse.accessToken;
+        }else {
+            console.log("not connected");
+        }
+    };
 
     getRecipes(): Observable<Recipe[]> {
         this.recipes = [];
-        return this.http.get(this.service + '/recipes').map((res) => {
+        return this.http.get(this.service + '/recipes?access_token=' + this.fbToken).map((res) => {
             let body = res.json();
             console.log(body);
             for(let recipe of body){
@@ -62,6 +90,7 @@ export class RecipeService {
             preparation: preparation,
             ingredients: ingredients,
             categories: categories,
+            token: this.fbToken
         };
         this.http.post(this.service + '/recipe',data).map((res) => {
             return res.json();
@@ -89,7 +118,8 @@ export class RecipeService {
     evaluate(rid:number, rating:number): Observable<number> {
         let data = {
             rid: rid,
-            rating: rating
+            rating: rating,
+            token: this.fbToken
         };
         return this.http.post(this.service + "/evaluate",data).map((res) => {
             return res.json().rating;

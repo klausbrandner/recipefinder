@@ -16,15 +16,41 @@ var recipe_1 = require("./recipe");
 var ingredient_1 = require("./ingredient");
 var RecipeService = (function () {
     function RecipeService(http) {
+        var _this = this;
         this.http = http;
         this.service = 'http://localhost:4040';
         this.recipes = [];
         this.categories = [];
+        FB.init({
+            appId: '255658018202456',
+            cookie: false,
+            xfbml: true,
+            version: 'v2.5'
+        });
+        FB.getLoginStatus(function (response) {
+            _this.statusChangeCallback(response);
+        });
     }
+    RecipeService.prototype.loginToFacebook = function () {
+        var self = this;
+        FB.login(function (response) {
+            window.location.reload();
+        });
+    };
+    RecipeService.prototype.statusChangeCallback = function (resp) {
+        if (resp.status === 'connected') {
+            console.log("connected to facebook ");
+            this.fbToken = resp.authResponse.accessToken;
+        }
+        else {
+            console.log("not connected");
+        }
+    };
+    ;
     RecipeService.prototype.getRecipes = function () {
         var _this = this;
         this.recipes = [];
-        return this.http.get(this.service + '/recipes').map(function (res) {
+        return this.http.get(this.service + '/recipes?access_token=' + this.fbToken).map(function (res) {
             var body = res.json();
             console.log(body);
             for (var _i = 0, body_1 = body; _i < body_1.length; _i++) {
@@ -57,6 +83,7 @@ var RecipeService = (function () {
             preparation: preparation,
             ingredients: ingredients,
             categories: categories,
+            token: this.fbToken
         };
         this.http.post(this.service + '/recipe', data).map(function (res) {
             return res.json();
@@ -80,7 +107,8 @@ var RecipeService = (function () {
     RecipeService.prototype.evaluate = function (rid, rating) {
         var data = {
             rid: rid,
-            rating: rating
+            rating: rating,
+            token: this.fbToken
         };
         return this.http.post(this.service + "/evaluate", data).map(function (res) {
             return res.json().rating;

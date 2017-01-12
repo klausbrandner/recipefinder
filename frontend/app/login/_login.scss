@@ -1,0 +1,25 @@
+#login-view{
+    margin: 100px auto;
+    padding: 50px;
+    background: #fff;
+    width: 400px;
+    box-shadow: $box-shadow;
+
+    p{
+        color: #666;
+        margin: 20px 0 30px;
+    }
+
+    #facebook-btn{
+        background: #3b5998;
+        color: #fff;
+        display: table;
+        padding: 8px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover{
+
+        }
+    }
+}
