@@ -18,7 +18,7 @@ var RecipeService = (function () {
     function RecipeService(http) {
         var _this = this;
         this.http = http;
-        this.service = 'http://localhost:4040';
+        this.service = 'http://35.167.61.204:9000';
         this.recipes = [];
         this.categories = [];
         FB.init({
