@@ -18,6 +18,8 @@ import { RecipeDetailsPageComponent }   from './layout/recipe-details-page/recip
 
 import { CategoriesComponent }   from './categories/categories.component';
 
+import { LoginComponent }   from './login/login.component';
+
 import { RecipeComponent }   from './recipes/recipe/recipe.component';
 import { RecipeDetailsComponent }   from './recipes/recipe-details/recipe-details.component';
 import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.component';
@@ -30,17 +32,17 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
         RouterModule.forRoot([
             {
                 path: 'list',
-                component: RecipeListPageComponent
+                component: RecipeListPageComponent,
             },{
                 path: 'details/:rid',
-                component: RecipeDetailsPageComponent
+                component: RecipeDetailsPageComponent,
             },{
                 path: 'new',
-                component: NewRecipePageComponent
+                component: NewRecipePageComponent,
             },{
                 path: '',
                 component: RecipeListPageComponent
-            }
+            },
         ])
     ],
     declarations: [
@@ -53,7 +55,8 @@ import { RecipeListComponent }   from './recipes/recipe-list/recipe-list.compone
         RecipeListPageComponent,
         RecipeDetailsPageComponent,
         NewRecipePageComponent,
-        CategoriesComponent
+        CategoriesComponent,
+        LoginComponent
     ],
     providers: [
         RecipeService

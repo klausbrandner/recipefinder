@@ -3,6 +3,8 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { RecipeService } from '../../models/recipe-service';
 import { Recipe } from '../../models/recipe';
 
+declare const FB:any;
+
 @Component({
   selector: 'recipe-list',
   templateUrl: './app/recipes/recipe-list/recipe-list.html'
@@ -42,6 +44,10 @@ export class RecipeListComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.getRecipes();
+        FB.getLoginStatus(response => {
+            if (response.status === 'connected') {
+                this.getRecipes();
+            }
+        });
     }
 }

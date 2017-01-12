@@ -9,34 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var recipe_service_1 = require('./models/recipe-service');
-var AppComponent = (function () {
-    function AppComponent(recipeService) {
+var recipe_service_1 = require('../models/recipe-service');
+var LoginComponent = (function () {
+    function LoginComponent(recipeService) {
         this.recipeService = recipeService;
     }
-    AppComponent.prototype.getLoginState = function () {
-        return this.loggedIn;
+    LoginComponent.prototype.onFacebookLoginClick = function () {
+        this.recipeService.loginToFacebook();
     };
-    AppComponent.prototype.ngOnInit = function () {
-        var self = this;
-        FB.getLoginStatus(function (response) {
-            if (response.status === 'connected') {
-                self.loggedIn = true;
-            }
-            else {
-                self.loggedIn = false;
-            }
-        });
-    };
-    AppComponent = __decorate([
+    LoginComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/app.layout.html'
+            selector: 'login-view',
+            templateUrl: './app/login/login.html'
         }), 
         __metadata('design:paramtypes', [recipe_service_1.RecipeService])
-    ], AppComponent);
-    return AppComponent;
+    ], LoginComponent);
+    return LoginComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.LoginComponent = LoginComponent;
 
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=login.component.js.map

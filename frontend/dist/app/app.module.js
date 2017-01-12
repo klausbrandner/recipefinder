@@ -24,6 +24,7 @@ var new_recipe_page_component_1 = require('./layout/new-recipe-page/new-recipe-p
 var recipe_list_page_component_1 = require('./layout/recipe-list-page/recipe-list-page.component');
 var recipe_details_page_component_1 = require('./layout/recipe-details-page/recipe-details-page.component');
 var categories_component_1 = require('./categories/categories.component');
+var login_component_1 = require('./login/login.component');
 var recipe_component_1 = require('./recipes/recipe/recipe.component');
 var recipe_details_component_1 = require('./recipes/recipe-details/recipe-details.component');
 var recipe_list_component_1 = require('./recipes/recipe-list/recipe-list.component');
@@ -39,17 +40,17 @@ var AppModule = (function () {
                 router_1.RouterModule.forRoot([
                     {
                         path: 'list',
-                        component: recipe_list_page_component_1.RecipeListPageComponent
+                        component: recipe_list_page_component_1.RecipeListPageComponent,
                     }, {
                         path: 'details/:rid',
-                        component: recipe_details_page_component_1.RecipeDetailsPageComponent
+                        component: recipe_details_page_component_1.RecipeDetailsPageComponent,
                     }, {
                         path: 'new',
-                        component: new_recipe_page_component_1.NewRecipePageComponent
+                        component: new_recipe_page_component_1.NewRecipePageComponent,
                     }, {
                         path: '',
                         component: recipe_list_page_component_1.RecipeListPageComponent
-                    }
+                    },
                 ])
             ],
             declarations: [
@@ -62,7 +63,8 @@ var AppModule = (function () {
                 recipe_list_page_component_1.RecipeListPageComponent,
                 recipe_details_page_component_1.RecipeDetailsPageComponent,
                 new_recipe_page_component_1.NewRecipePageComponent,
-                categories_component_1.CategoriesComponent
+                categories_component_1.CategoriesComponent,
+                login_component_1.LoginComponent
             ],
             providers: [
                 recipe_service_1.RecipeService

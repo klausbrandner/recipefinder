@@ -39,7 +39,12 @@ var RecipeListComponent = (function () {
         }
     };
     RecipeListComponent.prototype.ngOnInit = function () {
-        this.getRecipes();
+        var _this = this;
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                _this.getRecipes();
+            }
+        });
     };
     __decorate([
         core_1.Input(), 
